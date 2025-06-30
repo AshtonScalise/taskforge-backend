@@ -24,3 +24,7 @@ def create_task(db: Session, task: TaskCreate):
     db.commit()
     db.refresh(db_task)
     return db_task
+
+def get_projects_by_user(db: Session, user_id: int):
+    return db.query(Project).filter(Project.owner_id == user_id).all()
+

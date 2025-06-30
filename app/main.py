@@ -33,6 +33,14 @@ def create_project(
 ):
     return crud.create_project(db, project, current_user.id)
 
+@app.get("/projects/", response_model=list[schemas.ProjectOut])
+def get_user_projects(
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(auth.get_current_user),
+):
+    return crud.get_projects_by_user(db, current_user.id)
+
+
 # --- Tasks ---
 @app.post("/tasks/", response_model=schemas.TaskOut)
 def create_task(
