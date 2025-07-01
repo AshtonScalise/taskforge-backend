@@ -20,6 +20,7 @@ def get_password_hash(password):
     return pwd_context.hash(password)
 
 def verify_password(plain, hashed):
+    print(pwd_context.verify(plain, hashed))
     return pwd_context.verify(plain, hashed)
 
 def create_access_token(data: dict, expires_delta: timedelta = None):
@@ -29,6 +30,7 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    print("test test")
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Invalid credentials",
